@@ -1,4 +1,4 @@
-const adIdentifiers = [".ad-container", ".video-ad-container", ".ad-wrapper", ".advertisement", ".promo"];
+const skipAdButtonSelectors = ["button[aria-label='Skip Ad']", "button[aria-label='Skip']", "div[class*='skipButton']"];
 
 function setMute(muted) {
   const video = document.querySelector("video");
@@ -7,32 +7,23 @@ function setMute(muted) {
   }
 }
 
-const observer = new MutationObserver((mutations) => {
-  for (const mutation of mutations) {
-    if (mutation.addedNodes.length) {
-      for (const identifier of adIdentifiers) {
-        if (document.querySelector(identifier)) {
-          setMute(true);
-          return;
-        }
-      }
-    }
-    if (mutation.removedNodes.length) {
-      let adContainerFound = false;
-      for (const identifier of adIdentifiers) {
-        if (document.querySelector(identifier)) {
-          adContainerFound = true;
-          break;
-        }
-      }
-      if (!adContainerFound) {
-        setMute(false);
-      }
+function checkForAd() {
+  let adFound = false;
+  for (const selector of skipAdButtonSelectors) {
+    if (document.querySelector(selector)) {
+      adFound = true;
+      break;
     }
   }
-});
+  setMute(adFound);
+}
+
+const observer = new MutationObserver(checkForAd);
 
 observer.observe(document.body, {
   childList: true,
   subtree: true,
 });
+
+// Initial check in case the ad is already present
+checkForAd();
