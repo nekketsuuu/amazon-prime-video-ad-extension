@@ -6,14 +6,12 @@ const adSelectors = [
   "span.atvwebplayersdk-ad-timer-ad-text"
 ];
 
-let isAdPlaying = false;
-
 function setMuteForAllVideos(muted) {
   const videoElements = document.querySelectorAll("video");
   videoElements.forEach(video => {
     if (video.muted !== muted) {
       video.muted = muted;
-      console.log(`Amazon Prime Ad Muter: Video mute state set to ${muted} for a video element.`);
+      console.log(`Amazon Prime Ad Muter: Video mute state changed to ${muted} for a video element.`);
     }
   });
 }
@@ -27,17 +25,7 @@ function checkForAd() {
     }
   }
 
-  if (adElementFound && !isAdPlaying) {
-    // Ad just started
-    console.log("Amazon Prime Ad Muter: Ad detected. Muting all videos.");
-    setMuteForAllVideos(true);
-    isAdPlaying = true;
-  } else if (!adElementFound && isAdPlaying) {
-    // Ad just ended
-    console.log("Amazon Prime Ad Muter: Ad finished. Unmuting all videos.");
-    setMuteForAllVideos(false);
-    isAdPlaying = false;
-  }
+  setMuteForAllVideos(adElementFound);
 }
 
 const observer = new MutationObserver(checkForAd);
