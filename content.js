@@ -22,9 +22,14 @@ function checkForAd() {
   for (const selector of adSelectors) {
     const element = document.querySelector(selector);
     if (element) {
-      console.log(`Amazon Prime Ad Muter: Selector '${selector}' found an element.`);
-      adElementFound = true;
-      break;
+      // Check if the element is visible
+      if (element.offsetWidth > 0 || element.offsetHeight > 0) {
+        console.log(`Amazon Prime Ad Muter: Selector '${selector}' found a VISIBLE element.`);
+        adElementFound = true;
+        break;
+      } else {
+        console.log(`Amazon Prime Ad Muter: Selector '${selector}' found a HIDDEN element.`);
+      }
     } else {
       console.log(`Amazon Prime Ad Muter: Selector '${selector}' did NOT find an element.`);
     }
