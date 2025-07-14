@@ -1,3 +1,14 @@
 # Amazon Prime Video Ad Extension
 
 Google Chrome extension for handling advertizements of Amazon Prime Video. This extension can be used to auto-mute ads when playing videos.
+
+## How it works
+
+The extension injects a content script into Amazon Prime Video pages. This script monitors the video player for ad playback and mutes the player when an ad is detected. When the ad is finished, the script unmutes the player.
+
+## Installation
+
+1. Clone this repository.
+2. Open Google Chrome and navigate to `chrome://extensions`.
+3. Enable "Developer mode".
+4. Click "Load unpacked" and select the cloned repository directory.
