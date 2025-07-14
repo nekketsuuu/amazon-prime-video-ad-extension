@@ -10,10 +10,10 @@
   "content_scripts": [
     {
       "matches": [
-        "*://www.amazon.com/gp/video/*",
-        "*://www.amazon.co.uk/gp/video/*",
-        "*://www.amazon.de/gp/video/*",
-        "*://www.amazon.co.jp/gp/video/*"
+        "*://www.amazon.com/gp/video/detail/*",
+        "*://www.amazon.co.uk/gp/video/detail/*",
+        "*://www.amazon.de/gp/video/detail/*",
+        "*://www.amazon.co.jp/gp/video/detail/*"
       ],
       "js": ["content.js"]
     }
