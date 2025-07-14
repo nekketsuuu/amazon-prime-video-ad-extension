@@ -8,22 +8,14 @@ const adSelectors = [
 
 let isAdPlaying = false;
 
-function getMainVideoElement() {
+function setMuteForAllVideos(muted) {
   const videoElements = document.querySelectorAll("video");
-  for (const video of videoElements) {
-    // Check if the video element is visible and has a significant size
-    if (video.offsetWidth > 0 && video.offsetHeight > 0 && video.readyState > 0) {
-      return video;
+  videoElements.forEach(video => {
+    if (video.muted !== muted) {
+      video.muted = muted;
+      console.log(`Amazon Prime Ad Muter: Video mute state set to ${muted} for a video element.`);
     }
-  }
-  return null;
-}
-
-function setMute(muted) {
-  const video = getMainVideoElement();
-  if (video) {
-    video.muted = muted;
-  }
+  });
 }
 
 function checkForAd() {
@@ -37,13 +29,13 @@ function checkForAd() {
 
   if (adElementFound && !isAdPlaying) {
     // Ad just started
-    console.log("Amazon Prime Ad Muter: Ad detected. Muting video.");
-    setMute(true);
+    console.log("Amazon Prime Ad Muter: Ad detected. Muting all videos.");
+    setMuteForAllVideos(true);
     isAdPlaying = true;
   } else if (!adElementFound && isAdPlaying) {
     // Ad just ended
-    console.log("Amazon Prime Ad Muter: Ad finished. Unmuting video.");
-    setMute(false);
+    console.log("Amazon Prime Ad Muter: Ad finished. Unmuting all videos.");
+    setMuteForAllVideos(false);
     isAdPlaying = false;
   }
 }
