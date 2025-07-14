@@ -1,5 +1,5 @@
 {
-  "name": "Amazon Prime Video Ad Muter",
+  "name": "Amazon Prime Video Ad Extension",
   "version": "1.0",
   "manifest_version": 3,
   "description": "Mutes ads on Amazon Prime Video.",
