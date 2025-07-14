@@ -6,52 +6,43 @@ const adSelectors = [
   "span.atvwebplayersdk-ad-timer-ad-text"
 ];
 
+let isAdPlaying = false;
+
 function setMute(muted) {
   const video = document.querySelector("video");
   if (video) {
-    if (video.muted !== muted) {
-      video.muted = muted;
-      console.log(`Amazon Prime Ad Muter: Video mute state set to ${muted}`);
-    } else {
-      console.log(`Amazon Prime Ad Muter: Video mute state is already ${muted}`);
-    }
-  } else {
-    console.log("Amazon Prime Ad Muter: Video element not found.");
+    video.muted = muted;
   }
 }
 
 function checkForAd() {
-  console.log("Amazon Prime Ad Muter: Checking for ads...");
-  let adFound = false;
+  let adElementFound = false;
   for (const selector of adSelectors) {
-    const element = document.querySelector(selector);
-    if (element) {
-      console.log(`Amazon Prime Ad Muter: Found ad element with selector: ${selector}`);
-      adFound = true;
+    if (document.querySelector(selector)) {
+      adElementFound = true;
       break;
     }
   }
-  
-  if (adFound) {
-      console.log("Amazon Prime Ad Muter: Ad detected.");
-  } else {
-      console.log("Amazon Prime Ad Muter: No ad detected.");
-  }
 
-  setMute(adFound);
+  if (adElementFound && !isAdPlaying) {
+    // Ad just started
+    console.log("Amazon Prime Ad Muter: Ad detected. Muting video.");
+    setMute(true);
+    isAdPlaying = true;
+  } else if (!adElementFound && isAdPlaying) {
+    // Ad just ended
+    console.log("Amazon Prime Ad Muter: Ad finished. Unmuting video.");
+    setMute(false);
+    isAdPlaying = false;
+  }
 }
 
-const observer = new MutationObserver((mutations) => {
-    console.log("Amazon Prime Ad Muter: DOM changed, running ad check.");
-    checkForAd();
-});
+const observer = new MutationObserver(checkForAd);
 
-console.log("Amazon Prime Ad Muter: Starting MutationObserver.");
 observer.observe(document.body, {
   childList: true,
   subtree: true,
 });
 
 // Initial check
-console.log("Amazon Prime Ad Muter: Running initial ad check.");
 checkForAd();
