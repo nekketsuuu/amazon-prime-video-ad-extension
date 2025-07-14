@@ -1,4 +1,8 @@
-const skipAdButtonSelectors = ["button[aria-label='Skip Ad']", "button[aria-label='Skip']", "div[class*='skipButton']"];
+const adSelectors = [
+  "div[class*='atvwebplayersdk-ad-timer-countdown']",
+  "div[aria-label*='広告を再生しています']",
+  "span.atvwebplayersdk-ad-timer-ad-text"
+];
 
 function setMute(muted) {
   const video = document.querySelector("video");
@@ -9,7 +13,7 @@ function setMute(muted) {
 
 function checkForAd() {
   let adFound = false;
-  for (const selector of skipAdButtonSelectors) {
+  for (const selector of adSelectors) {
     if (document.querySelector(selector)) {
       adFound = true;
       break;
@@ -25,5 +29,5 @@ observer.observe(document.body, {
   subtree: true,
 });
 
-// Initial check in case the ad is already present
+// Initial check
 checkForAd();
