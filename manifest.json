@@ -1,0 +1,23 @@
+{
+  "name": "Amazon Prime Video Ad Muter",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Mutes ads on Amazon Prime Video.",
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.amazon.com/gp/video/*",
+        "*://www.amazon.co.uk/gp/video/*",
+        "*://www.amazon.de/gp/video/*",
+        "*://www.amazon.co.jp/gp/video/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
