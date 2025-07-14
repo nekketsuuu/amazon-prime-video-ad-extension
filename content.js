@@ -8,8 +8,19 @@ const adSelectors = [
 
 let isAdPlaying = false;
 
+function getMainVideoElement() {
+  const videoElements = document.querySelectorAll("video");
+  for (const video of videoElements) {
+    // Check if the video element is visible and has a significant size
+    if (video.offsetWidth > 0 && video.offsetHeight > 0 && video.readyState > 0) {
+      return video;
+    }
+  }
+  return null;
+}
+
 function setMute(muted) {
-  const video = document.querySelector("video");
+  const video = getMainVideoElement();
   if (video) {
     video.muted = muted;
   }
