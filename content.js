@@ -17,14 +17,20 @@ function setMuteForAllVideos(muted) {
 }
 
 function checkForAd() {
+  console.log("Amazon Prime Ad Muter: Running ad check.");
   let adElementFound = false;
   for (const selector of adSelectors) {
-    if (document.querySelector(selector)) {
+    const element = document.querySelector(selector);
+    if (element) {
+      console.log(`Amazon Prime Ad Muter: Selector '${selector}' found an element.`);
       adElementFound = true;
       break;
+    } else {
+      console.log(`Amazon Prime Ad Muter: Selector '${selector}' did NOT find an element.`);
     }
   }
 
+  console.log(`Amazon Prime Ad Muter: Final adElementFound status: ${adElementFound}`);
   setMuteForAllVideos(adElementFound);
 }
 
