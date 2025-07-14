@@ -4,8 +4,13 @@
   "manifest_version": 3,
   "description": "Mutes ads on Amazon Prime Video.",
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage"
   ],
+  "action": {
+    "default_popup": "popup.html",
+    
+  },
   
   "content_scripts": [
     {
