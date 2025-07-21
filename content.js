@@ -59,6 +59,9 @@ observer.observe(document.body, {
   subtree: true,
 });
 
+// Periodically check for ads every 100ms
+setInterval(checkForAd, 100);
+
 // Initial check
 checkForAd();
 
