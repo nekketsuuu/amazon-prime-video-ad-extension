@@ -11,9 +11,9 @@ function log(message) {
 log("Amazon Prime Ad Muter: Content script loaded.");
 
 const adSelectors = [
-  "div[class*='atvwebplayersdk-ad-timer-countdown']",
+  "[class*='atvwebplayersdk-ad-timer']",
   "div[aria-label*='広告を再生しています']",
-  "span.atvwebplayersdk-ad-timer-ad-text"
+  "span.atvwebplayersdk-ad-timer-remaining-time"
 ];
 
 function setMuteForAllVideos(muted) {
